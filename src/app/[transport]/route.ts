@@ -1,24 +1,33 @@
 import { createMcpHandler } from "@vercel/mcp-adapter";
 import z from "zod";
+import { placeOrder } from "@/lib/zerodha";
+
+
 
 const handler = createMcpHandler(
     server => {
         server.tool(
             "Buy_Stock",
             "Buy a stock at market price on Zerodha",
-            {
-                tradingExperience: z.enum(["beginner", "intermediate"]),
-                
-            },
-            ({tradingExperience}) =>  ({
-                content: [
-                    {
-                    type: "text",
-                    text: `I recommend you to buy ${
-                        tradingExperience === "beginner" ? "100 stocks" : "500 stocks"
-                    }`
-            }]
-        })
+            { stock: z.string(), qty: z.number() },
+            async ({ stock, qty }: { stock: string; qty: number }) => {
+                await placeOrder(stock, qty, "BUY");
+                return {
+                    content: [{ type: "text", text: "Stock has been bought" }]
+                };
+            }
+        );
+
+        server.tool(
+            "Sell_Stock",
+            "Sell a stock at market price on Zerodha",
+            { stock: z.string(), qty: z.number() },
+            async ({ stock, qty }: { stock: string; qty: number }) => {
+                await placeOrder(stock, qty, "SELL");
+                return {
+                    content: [{ type: "text", text: "Stock has been sold" }]
+                };
+            }
         );
     },
     {
@@ -27,6 +36,9 @@ const handler = createMcpHandler(
             "Buy_Stock": {
                 description: "Buy a stock at market price on Zerodha",
         },
+        "Sell_Stock" : {
+            description : "Sell a stock at market price on Zerodha"
+        }
     },
 
 }, 
