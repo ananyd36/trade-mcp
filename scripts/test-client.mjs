@@ -1,7 +1,7 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
 
-const origin = "https://auto-trade-magj-ananyd36s-projects.vercel.app/";
+const origin = "https://auto-trade-magj.vercel.app/";
 
 async function main() {
   const transport = new SSEClientTransport(new URL(`${origin}/sse`));
