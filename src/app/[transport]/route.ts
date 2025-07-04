@@ -1,6 +1,6 @@
 import { createMcpHandler } from "@vercel/mcp-adapter";
 import z from "zod";
-import { placeOrder } from "@/lib/zerodha";
+import { placeOrder, findingStocks } from "@/lib/zerodha";
 
 
 
@@ -26,6 +26,17 @@ const handler = createMcpHandler(
                 await placeOrder(stock, qty, "SELL");
                 return {
                     content: [{ type: "text", text: "Stock has been sold" }]
+                };
+            }
+        );
+
+        server.tool(
+            "Analyse_Stocks",
+            "Finding the best stocks for strong ROI",
+            async () => {
+                const stocks = await findingStocks();
+                return {
+                    content: [{ type: "text", text: "Here are the top 5 stocks for great ROI in future " +  stocks.join(", ") }]
                 };
             }
         );
