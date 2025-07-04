@@ -49,6 +49,9 @@ const handler = createMcpHandler(
         },
         "Sell_Stock" : {
             description : "Sell a stock at market price on Zerodha"
+        },
+        "Analyse_Stock" : {
+            description : "Search for the top 5 of the Nifty 50 stocks for great future ROI."
         }
     },
 
