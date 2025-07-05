@@ -39,10 +39,11 @@ export async function placeOrder(tradingSymbol: string, quantity : number, type 
         }
 
     }
-    catch (err: any) {
+    catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : "Order placement failed";
         return {
             success: false,
-            error: err.message || "Order placement failed"
+            error: errorMessage
         };
     }
 }
