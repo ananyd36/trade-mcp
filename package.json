@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test-stocks": "npx tsx scripts/test-finding-stocks.ts"
   },
   "dependencies": {
     "@google/genai": "^1.8.0",
