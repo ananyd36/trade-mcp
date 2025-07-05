@@ -1,18 +1,19 @@
 import { KiteConnect } from "kiteconnect";
 import { GoogleGenAI } from "@google/genai";
 
-const apiKey = "saxoq5yc86yfkla9";
-// const apiSecret = "cuzqwpkn05mbteq6dg58yaum6rdeh6zj"
-const access_token = "i7i6mviu518YRmK4pP6IgjcqX1j5tLEi";
-const gemini_api_key = "AIzaSyC9RcGRQ_Myk544etFx7qAwerhNH9sh7vY";
-
+const apiKey = process.env.KITE_API_KEY;
+if (!apiKey) throw new Error("KITE_API_KEY environment variable is required");
+const access_token = process.env.KITE_ACCESS_TOKEN;
+if (!access_token) throw new Error("KITE_ACCESS_TOKEN environment variable is required");
+const gemini_api_key = process.env.GEMINI_API_KEY;
+if (!gemini_api_key) throw new Error("GEMINI_API_KEY environment variable is required");
 
 const kc = new KiteConnect({ api_key: apiKey });
 const ai = new GoogleGenAI({apiKey : gemini_api_key});
 
-
 export async function placeOrder(tradingSymbol: string, quantity : number, type : "BUY" | "SELL") {
     try{
+        if (!access_token) throw new Error("Access token is required");
         kc.setAccessToken(access_token);
         await kc.placeOrder("regular",{
             exchange: "NSE" ,
