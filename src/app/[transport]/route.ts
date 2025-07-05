@@ -11,10 +11,16 @@ const handler = createMcpHandler(
             "Buy a stock at market price on Zerodha",
             { stock: z.string(), qty: z.number() },
             async ({ stock, qty }: { stock: string; qty: number }) => {
-                await placeOrder(stock, qty, "BUY");
-                return {
-                    content: [{ type: "text", text: "Stock has been bought" }]
-                };
+                const result = await placeOrder(stock, qty, "BUY");
+                if (result.success) {
+                    return {
+                        content: [{ type: "text", text: `✅ ${result.message} (Order ID: ${result.orderId})` }]
+                    };
+                } else {
+                    return {
+                        content: [{ type: "text", text: `❌ Order failed: ${result.error}` }]
+                    };
+                }
             }
         );
 
@@ -23,10 +29,16 @@ const handler = createMcpHandler(
             "Sell a stock at market price on Zerodha",
             { stock: z.string(), qty: z.number() },
             async ({ stock, qty }: { stock: string; qty: number }) => {
-                await placeOrder(stock, qty, "SELL");
-                return {
-                    content: [{ type: "text", text: "Stock has been sold" }]
-                };
+                const result = await placeOrder(stock, qty, "SELL");
+                if (result.success) {
+                    return {
+                        content: [{ type: "text", text: `✅ ${result.message} (Order ID: ${result.orderId})` }]
+                    };
+                } else {
+                    return {
+                        content: [{ type: "text", text: `❌ Order failed: ${result.error}` }]
+                    };
+                }
             }
         );
 

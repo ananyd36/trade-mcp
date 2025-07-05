@@ -15,20 +15,36 @@ export async function placeOrder(tradingSymbol: string, quantity : number, type 
     try{
         if (!access_token) throw new Error("Access token is required");
         kc.setAccessToken(access_token);
-        await kc.placeOrder("regular",{
+        const orderResponse = await kc.placeOrder("regular",{
             exchange: "NSE" ,
             tradingsymbol: tradingSymbol,
             transaction_type : type,
             quantity,
             product: "CNC",
             order_type: "MARKET"
-        })
+        });
+
+        // Check if order was successful
+        if (orderResponse && orderResponse.order_id) {
+            return {
+                success: true,
+                orderId: orderResponse.order_id,
+                message: `${type} order placed successfully for ${quantity} shares of ${tradingSymbol}`
+            };
+        } else {
+            return {
+                success: false,
+                error: "Order placement failed - no order ID received"
+            };
+        }
 
     }
-    catch (err) {
-        console.error(err)
+    catch (err: any) {
+        return {
+            success: false,
+            error: err.message || "Order placement failed"
+        };
     }
-    
 }
 
 export async function findingStocks(){
