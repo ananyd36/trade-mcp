@@ -92,18 +92,18 @@ const handler = createMcpHandler(
     capabilities: {
         tools:{
             "Buy_Stock": {
-                description: "Buy a stock at market price on Zerodha",
+                description: "Place a market order to buy a specified quantity of a stock on the NSE using Zerodha. Requires trading symbol and quantity. Returns order status and order ID."
+            },
+            "Sell_Stock" : {
+                description : "Place a market order to sell a specified quantity of a stock on the NSE using Zerodha. Requires trading symbol and quantity. Returns order status and order ID."
+            },
+            "Analyse_Stock" : {
+                description : "Analyze all NIFTY 50 stocks and return the top 5 trading symbols with the highest potential for future ROI."
+            },
+            "Get_Profile" : {
+                description : "Retrieve the user's Zerodha account profile, including account details and personal information."
+            }
         },
-        "Sell_Stock" : {
-            description : "Sell a stock at market price on Zerodha"
-        },
-        "Analyse_Stock" : {
-            description : "Search for the top 5 of the Nifty 50 stocks for great future ROI."
-        },
-        "Get_Profile" : {
-            description : "Get user's Zerodha profile information including account details."
-        }
-    },
 
 }, 
     },
