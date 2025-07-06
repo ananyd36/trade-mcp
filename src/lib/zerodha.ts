@@ -93,4 +93,23 @@ export async function findingStocks(){
         return [];
     }
   }
+
+export async function getProfile() {
+    try {
+        if (!access_token) throw new Error("Access token is required");
+        kc.setAccessToken(access_token);
+        const profile = await kc.getProfile();
+        return {
+            success: true,
+            profile: profile
+        };
+    } 
+    catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : "Failed to get profile";
+        return {
+            success: false,
+            error: errorMessage
+        };
+    }
+}
   

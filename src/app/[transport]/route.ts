@@ -1,6 +1,6 @@
 import { createMcpHandler } from "@vercel/mcp-adapter";
 import z from "zod";
-import { placeOrder, findingStocks } from "@/lib/zerodha";
+import { placeOrder, findingStocks, getProfile } from "@/lib/zerodha";
 
 
 
@@ -52,6 +52,27 @@ const handler = createMcpHandler(
                 };
             }
         );
+
+        server.tool(
+            "Get_Profile",
+            "Get user's Zerodha profile information",
+            {},
+            async () => {
+                const result = await getProfile();
+                if (result.success) {
+                    return {
+                        content: [{ 
+                            type: "text", 
+                            text: `✅ Profile retrieved successfully:\n${JSON.stringify(result.profile, null, 2)}` 
+                        }]
+                    };
+                } else {
+                    return {
+                        content: [{ type: "text", text: `❌ Failed to get profile: ${result.error}` }]
+                    };
+                }
+            }
+        );
     },
     {
     capabilities: {
@@ -64,6 +85,9 @@ const handler = createMcpHandler(
         },
         "Analyse_Stock" : {
             description : "Search for the top 5 of the Nifty 50 stocks for great future ROI."
+        },
+        "Get_Profile" : {
+            description : "Get user's Zerodha profile information including account details."
         }
     },
 
