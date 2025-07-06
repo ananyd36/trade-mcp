@@ -17,6 +17,13 @@ const handler = createMcpHandler(
                         content: [{ type: "text", text: `✅ ${result.message} (Order ID: ${result.orderId})` }]
                     };
                 } else {
+                    // Check if market is open
+                    const { isMarketOpen } = await import("@/lib/zerodha");
+                    if (!isMarketOpen()) {
+                        return {
+                            content: [{ type: "text", text: `❌ Order failed: Market is currently closed.` }]
+                        };
+                    }
                     return {
                         content: [{ type: "text", text: `❌ Order failed: ${result.error}` }]
                     };
@@ -35,6 +42,13 @@ const handler = createMcpHandler(
                         content: [{ type: "text", text: `✅ ${result.message} (Order ID: ${result.orderId})` }]
                     };
                 } else {
+                    // Check if market is open
+                    const { isMarketOpen } = await import("@/lib/zerodha");
+                    if (!isMarketOpen()) {
+                        return {
+                            content: [{ type: "text", text: `❌ Order failed: Market is currently closed.` }]
+                        };
+                    }
                     return {
                         content: [{ type: "text", text: `❌ Order failed: ${result.error}` }]
                     };

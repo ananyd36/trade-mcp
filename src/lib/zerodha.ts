@@ -1,5 +1,7 @@
 import { KiteConnect } from "kiteconnect";
 import { GoogleGenAI } from "@google/genai";
+// @ts-expect-error: No types for @zero65tech/indian-stock-market
+import ism from "@zero65tech/indian-stock-market";
 
 const apiKey = process.env.KITE_API_KEY;
 if (!apiKey) throw new Error("KITE_API_KEY environment variable is required");
@@ -111,5 +113,9 @@ export async function getProfile() {
             error: errorMessage
         };
     }
+}
+
+export function isMarketOpen(): boolean {
+    return ism.isOpen();
 }
   

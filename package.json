@@ -13,6 +13,7 @@
     "@google/genai": "^1.8.0",
     "@modelcontextprotocol/sdk": "^1.15.0",
     "@vercel/mcp-adapter": "^0.11.1",
+    "@zero65tech/indian-stock-market": "^4.4.1",
     "bufferutil": "^4.0.9",
     "kiteconnect": "^5.0.1",
     "next": "15.3.5",
