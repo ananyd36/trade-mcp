@@ -1,9 +1,9 @@
 import { KiteConnect } from "kiteconnect";
 
-const apiKey = "saxoq5yc86yfkla9";
-const apiSecret =  "cuzqwpkn05mbteq6dg58yaum6rdeh6zj";
-const requestToken =  "LuUTheCK5MC0mwkzgVBXAyB2nxaXyH3X";
-const access_token = "";
+const apiKey = process.env.KITE_API_KEY;
+const apiSecret = process.env.KITE_API_SECRET;
+// const requestToken = process.env.KITE_REQUEST_TOKEN;
+const access_token = process.env.KITE_ACCESS_TOKEN;
 
 const kc = new KiteConnect({ api_key: apiKey });
 console.log(kc.getLoginURL());
