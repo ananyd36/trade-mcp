@@ -54,7 +54,7 @@ export async function findingStocks(){
 
     try{
         const prompt = `
-        You are a stock market analyst. Analyze all stocks in the NIFTY 50 index and select 5 stocks with the strongest potential for high return on investment (ROI) over the next quarter. 
+        You are a stock market analyst. Analyze all stocks in the NIFTY 50 index and select 5 stocks with the strongest potential for high return on investment (ROI) over the next day. 
         For each, return only the official trading symbol (as used on NSE, e.g., "RELIANCE", "TCS", "INFY", etc.), in a JSON array. 
         Do not include any explanation or extra text—just the array of 5 trading symbols.
         

@@ -1,17 +1,17 @@
 import { KiteConnect } from "kiteconnect";
 
-const apiKey = "";
-const apiSecret =  "";
-const requestToken =  "";
+const apiKey = "saxoq5yc86yfkla9";
+const apiSecret =  "cuzqwpkn05mbteq6dg58yaum6rdeh6zj";
+const requestToken =  "LuUTheCK5MC0mwkzgVBXAyB2nxaXyH3X";
 const access_token = "";
 
 const kc = new KiteConnect({ api_key: apiKey });
 console.log(kc.getLoginURL());
-kc.setAccessToken(access_token);
+// kc.setAccessToken(access_token);
 
 async function init() {
   try {
-    // await generateSession();
+    await generateSession();
     await getProfile();
   } catch (err) {
     console.error(err);
