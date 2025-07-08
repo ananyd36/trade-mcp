@@ -59,9 +59,15 @@ const handler = createMcpHandler(
             "Finding the best stocks for strong ROI",
             async () => {
                 const stocks = await findingStocks();
-                return {
-                    content: [{ type: "text", text: "Here are the top 5 stocks for great ROI in future " +  stocks.join(", ") }]
-                };
+                if (Array.isArray(stocks)) {
+                    return {
+                        content: [{ type: "text", text: "Here are the top 5 stocks for great ROI in future " + stocks.join(", ") }]
+                    };
+                } else {
+                    return {
+                        content: [{ type: "text", text: `❌ Failed to analyze stocks: ${stocks.error}` }]
+                    };
+                }
             }
         );
 
@@ -95,7 +101,7 @@ const handler = createMcpHandler(
             "Sell_Stock" : {
                 description : "Place a market order to sell a specified quantity of a stock on the NSE using Zerodha. Requires trading symbol and quantity. Returns order status and order ID."
             },
-            "Analyse_Stock" : {
+            "Analyse_Stocks" : {
                 description : "Analyze all NIFTY 50 stocks and return the top 5 trading symbols with the highest potential for future ROI."
             },
             "Get_Profile" : {
