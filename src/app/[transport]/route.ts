@@ -1,6 +1,6 @@
 import { createMcpHandler } from "@vercel/mcp-adapter";
 import z from "zod";
-import { placeOrder, findingStocks, getProfile } from "@/lib/zerodha";
+import { placeOrder, findingStocks, getProfile, isMarketOpen } from "@/lib/zerodha";
 
 
 
@@ -18,7 +18,6 @@ const handler = createMcpHandler(
                     };
                 } else {
                     // Check if market is open
-                    const { isMarketOpen } = await import("@/lib/zerodha");
                     if (!isMarketOpen()) {
                         return {
                             content: [{ type: "text", text: `❌ Order failed: Market is currently closed.` }]
@@ -43,7 +42,6 @@ const handler = createMcpHandler(
                     };
                 } else {
                     // Check if market is open
-                    const { isMarketOpen } = await import("@/lib/zerodha");
                     if (!isMarketOpen()) {
                         return {
                             content: [{ type: "text", text: `❌ Order failed: Market is currently closed.` }]
